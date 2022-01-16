@@ -6,9 +6,9 @@ import RateReviewIcon from "@mui/icons-material/RateReview";
 import SideBarChat from "./SideBarChat";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
-import { signOut } from "firebase/auth";
 import db, { auth } from "./firebase";
-import { onSnapshot, query, collection, addDoc } from "firebase/firestore";
+// import { signOut } from "firebase/auth";
+// import { onSnapshot, query, collection, addDoc } from "firebase/firestore";
 import textFormatting from "./utils";
 
 export default function SideBar() {
@@ -16,22 +16,27 @@ export default function SideBar() {
   const [chats, setChats] = useState([]);
 
   useEffect(() => {
-    onSnapshot(query(collection(db, "chats")), (snapshot) =>
+    // onSnapshot(query(collection(db, "chats")), (snapshot) =>
+    //   setChats(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+    // );
+    db.collection("chats").onSnapshot((snapshot) =>
       setChats(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
     );
   }, []);
 
   const handleLogout = () => {
-    signOut(auth).catch((error) => alert(error.message));
+    // signOut(auth).catch((error) => alert(error.message));
+    auth.signOut().catch((error) => alert(error.message));
   };
 
   const addChat = async () => {
     let chatName = prompt("Kindly, enter a channel name");
     if (chatName) {
-      const doc = await addDoc(collection(db, "chats"), {
-        chatName: textFormatting(chatName),
-      });
-      return doc;
+      // const doc = await addDoc(collection(db, "chats"), {
+      //   chatName: textFormatting(chatName),
+      // });
+      // return doc;
+      return db.collection("chats").add({ chatName: textFormatting(chatName) });
     }
     return;
   };

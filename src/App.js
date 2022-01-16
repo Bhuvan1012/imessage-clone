@@ -6,14 +6,15 @@ import "./App.css";
 import IMessage from "./IMessage";
 import Login from "./Login";
 import { auth } from "./firebase";
-import { onAuthStateChanged } from "firebase/auth";
+// import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (authUser) => {
+    // onAuthStateChanged(auth, (authUser) => {
+      auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         dispatch(
           login({
@@ -27,7 +28,7 @@ function App() {
         dispatch(logout());
       }
     });
-  });
+  }, []);
 
   return <div className="app">{user ? <IMessage /> : <Login />}</div>;
 }

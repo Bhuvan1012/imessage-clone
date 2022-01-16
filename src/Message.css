@@ -1,23 +1,34 @@
-.message{
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    justify-content: space-between;
-    position: relative;
-    margin: 15px;
+.message {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  justify-content: space-between;
+  position: relative;
+  margin: 15px;
 }
-.message>p{
-    background-color: #f3f3f5;
-    font-size: medium;
-    padding:15px;
-    border-radius: 20px;
-    margin: 10px;
-    margin-right: auto;
+.message > p {
+  background-color: #f3f3f5;
+  font-size: medium;
+  padding: 15px;
+  border-radius: 20px;
+  margin: 10px;
+  margin-right: auto;
 }
-.message>small{
-    position: absolute;
-    color: gray;
-    font-size: 10px;
-    bottom: -5px;
-    right: 0;
+.message > small {
+  position: absolute;
+  color: gray;
+  font-size: 10px;
+  bottom: -5px;
+  right: 0;
+}
+.message__sender {
+  margin-left: auto;
+}
+.message__sender > .message__photo {
+  order: 1;
+  margin: 15px;
+}
+.message__sender > p {
+  background-color: #3e93fd;
+  color: #f3f3f5;
 }
