@@ -1,0 +1,23 @@
+.message{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    justify-content: space-between;
+    position: relative;
+    margin: 15px;
+}
+.message>p{
+    background-color: #f3f3f5;
+    font-size: medium;
+    padding:15px;
+    border-radius: 20px;
+    margin: 10px;
+    margin-right: auto;
+}
+.message>small{
+    position: absolute;
+    color: gray;
+    font-size: 10px;
+    bottom: -5px;
+    right: 0;
+}
