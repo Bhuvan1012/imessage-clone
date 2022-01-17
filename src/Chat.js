@@ -10,15 +10,6 @@ import { selectUser } from "./features/userSlice";
 import db from "./firebase";
 import firebase from "firebase";
 import textFormatting from "./utils";
-// import {
-//   onSnapshot,
-//   doc,
-//   collection,
-//   orderBy,
-//   addDoc,
-//   query,
-//   serverTimestamp,
-// } from "firebase/firestore";
 
 export default function Chat() {
   const [inputValue, setInputValue] = useState("");
@@ -28,20 +19,6 @@ export default function Chat() {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    // if (chatId) {
-    // const chatsRef = collection(db, "chats");
-    // console.log(
-    //   "object",
-    //   doc(collection(chatsRef, chatId, "messages")),
-    //   "timestamp",
-    //   serverTimestamp()
-    // );
-    // onSnapshot(doc(collection(chatsRef, chatId, "messages")), (snapshot) => {
-    //   console.log("snapshot", snapshot.docs);
-    //   setMessages(
-    //     snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
-    //   );
-    // });
     if (chatId) {
       db.collection("chats")
         .doc(chatId)
@@ -57,17 +34,6 @@ export default function Chat() {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    //firebase stuff
-
-    // const chatsRef = collection(db, "chats");
-    // const docRef = await addDoc(collection(chatsRef, chatId, "messages"), {
-    //   timestamp: serverTimestamp(),
-    //   message: inputValue,
-    //   uid: user.uid,
-    //   email: user.email,
-    //   photo: user.photo,
-    //   displayName: user.displayName,
-    // });
 
     db.collection("chats").doc(chatId).collection("messages").add({
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -78,23 +44,22 @@ export default function Chat() {
       displayName: user.displayName,
     });
     setInputValue("");
-    // return docRef;
   };
 
   return (
     <div className="chat">
       <div className="chat__header">
         <h4>
-          To: <span className="chat__name">{chatName || "Channel Name"}</span>
+          To: <span className="chat__name">{chatName}</span>
         </h4>
         <strong>Details</strong>
       </div>
       <div className="chat__messages">
-        {messages.map(({ id, data }) => (
-          <FlipMove>
+        <FlipMove>
+          {messages.map(({ id, data }) => (
             <Message key={id} id={id} contents={data} />
-          </FlipMove>
-        ))}
+          ))}
+        </FlipMove>
       </div>
       <div className="chat__input">
         <form>

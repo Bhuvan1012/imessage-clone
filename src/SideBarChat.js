@@ -4,6 +4,7 @@ import "./SideBarChat.css";
 import { useDispatch } from "react-redux";
 import { setChat } from "./features/chatSlice";
 import db from "./firebase";
+import moment from "moment";
 
 export default function SideBarChat({ id, chatName }) {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export default function SideBarChat({ id, chatName }) {
         <h3>{chatName}</h3>
         <p>{chatInfo[0]?.message}</p>
         <small>
-          {new Date(chatInfo[0]?.timestamp?.toDate()).toLocaleString()}
+          {moment(new Date(chatInfo[0]?.timestamp?.toDate())).fromNow(true)}
         </small>
       </div>
     </div>
